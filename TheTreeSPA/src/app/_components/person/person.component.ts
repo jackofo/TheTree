@@ -18,7 +18,7 @@ export class PersonComponent implements OnInit {
 
   ngOnInit() 
   {
-    this.service.ListAll().subscribe(response => persons = response)
+    this.service.ListAll().subscribe(response => this.persons = response)
   }
 
 }
