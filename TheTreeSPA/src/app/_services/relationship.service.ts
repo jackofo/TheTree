@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Person } from '../_models/person';
+import { Relationship } from '../_models/relationship';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class PersonService 
+export class RelationshipService 
 {
   constructor() { }
-  
-  public ListAll(): Observable<Person[]>
+
+  public ListAll(): Observable<Relationship[]>
   {
-    return ;
+    return;
   }
 }
