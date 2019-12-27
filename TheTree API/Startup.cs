@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TheTree_Infrastructure;
 
 namespace TheTree_API
 {
@@ -22,6 +24,8 @@ namespace TheTree_API
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddDbContext<Context>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("TreeDatabase")));
             // In production, the Angular files will be served from this directory
             //services.AddSpaStaticFiles(configuration =>
             //{

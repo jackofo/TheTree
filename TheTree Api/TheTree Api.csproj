@@ -21,6 +21,11 @@
 
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TheTree Core\TheTree Core.csproj" />
+    <ProjectReference Include="..\TheTree Infrastructure\TheTree Infrastructure.csproj" />
+  </ItemGroup>
+
 
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

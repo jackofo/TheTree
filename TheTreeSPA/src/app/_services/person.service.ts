@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Person } from '../_models/person';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,10 @@ import { Person } from '../_models/person';
 
 export class PersonService 
 {
-  constructor() { }
+  constructor(private http: HttpClient) { }
   
-  public ListAll(): Observable<Person[]>
+  public ListAll(): Observable<any>
   {
-    return ;
+    return this.http.get("localhost//api/person/all");
   }
 }
