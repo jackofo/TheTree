@@ -11,8 +11,8 @@ export class PersonService
 {
   constructor(private http: HttpClient) { }
   
-  public ListAll(): Observable<any>
+  ListAll(): Observable<String[]>
   {
-    return this.http.get("localhost//api/person/all");
+    return this.http.get<String[]>("localhost:5001//api/person/all")
   }
 }

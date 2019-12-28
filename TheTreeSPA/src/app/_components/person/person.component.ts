@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonService } from '../../_services/person.service';
 import { Person } from '../../_models/person';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-person',
@@ -8,17 +9,24 @@ import { Person } from '../../_models/person';
   styleUrls: ['./person.component.scss']
 })
 
-export class PersonComponent implements OnInit {
-
-  persons : Person;
+export class PersonComponent implements OnInit 
+{
+  persons : String[];
+  selectedPerson : Person;
 
   constructor(private service : PersonService)
   {
+    this.persons = new Array<String>();
   }
 
   ngOnInit() 
   {
-    //this.service.ListAll().subscribe(response => this.persons = response)
   }
 
+  public ListAll()
+  {
+    this.service.ListAll().subscribe(response => {this.persons = response;}, err => {console.log(err.message)});
+  }
 }
+
+

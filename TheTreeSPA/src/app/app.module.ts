@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginScreenComponent } from './_components/login-screen/login-screen.component';
 import { PersonComponent } from './_components/person/person.component';
 import { RelationshipComponent } from './_components/relationship/relationship.component';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RelationshipComponent } from './_components/relationship/relationship.c
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

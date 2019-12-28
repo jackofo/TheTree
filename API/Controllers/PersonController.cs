@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TheTree_Core.Models;
 
 namespace TheTree_API.Controllers
 {
@@ -11,6 +13,13 @@ namespace TheTree_API.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
+		//GET: api/Person/all
+		[HttpGet("all")]
+		public IEnumerable<string> ListAll()
+		{
+			return new string[] { "DuPa", "PuPcIa" };
+		}
+
         // GET: api/Person
         [HttpGet]
         public IEnumerable<string> Get()

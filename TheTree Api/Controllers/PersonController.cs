@@ -11,6 +11,13 @@ namespace TheTree_API.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
+		//GET: api/Person/all
+		[HttpGet("all")]
+		public string ListAll()
+		{
+			return "value";
+		}
+
         // GET: api/Person
         [HttpGet]
         public IEnumerable<string> Get()
