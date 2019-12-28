@@ -6,9 +6,9 @@ using TheTree_Core.Models;
 
 namespace TheTree_Infrastructure
 {
-	public class Context : DbContext
+	public class ProjectContext : DbContext
 	{
-        public Context(DbContextOptions<Context> options)
+        public ProjectContext(DbContextOptions<ProjectContext> options)
         : base(options)
         { }
 
@@ -21,7 +21,8 @@ namespace TheTree_Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Person>();
+            modelBuilder.Entity<Person>()
+                .HasKey(k=>k.Id);
         }
     }
 }
