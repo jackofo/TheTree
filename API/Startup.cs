@@ -26,11 +26,12 @@ namespace API
 
             services.AddDbContext<ProjectContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TreeDatabase")));
-            // In production, the Angular files will be served from this directory
-            //services.AddSpaStaticFiles(configuration =>
-            //{
-            //    configuration.RootPath = "ClientApp/dist";
-            //});
+			// In production, the Angular files will be served from this directory
+			//services.AddSpaStaticFiles(configuration =>
+			//{
+			//    configuration.RootPath = "ClientApp/dist";
+			//});
+			services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
