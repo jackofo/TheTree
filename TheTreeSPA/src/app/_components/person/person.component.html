@@ -1,3 +1,7 @@
 <p>person works!</p>
-<button id='test' (click)='ListAll()'>Push the button</button>
-<p>{{persons[0]}}</p>
+<button id='test' (click)='Click()'>Push the button</button>
+<ul *ngIf="ls === true">
+    <li *ngFor="let person of persons">
+        <span class="badge">{{person.name}}</span>
+    </li>
+</ul>

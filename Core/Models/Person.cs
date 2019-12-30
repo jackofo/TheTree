@@ -10,6 +10,6 @@ namespace TheTree_Core.Models
 		public string Name;
 		//[Required]
 		public string Surname;
-		public Relationship ParenthoodId;
+		//public Relationship ParenthoodId;
 	}
 }

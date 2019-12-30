@@ -47,7 +47,7 @@ namespace TheTree_API
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-                .UseUrls(urls: "https://localhost:84")
+                .UseUrls(urls: "https://localhost:5001")
                 .UseIISIntegration()
                 .UseStartup<Startup>();
         }

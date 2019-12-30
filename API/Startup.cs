@@ -32,7 +32,8 @@ namespace API
 			//    configuration.RootPath = "ClientApp/dist";
 			//});
 			services.AddControllers();
-        }
+			services.AddCors();
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -55,8 +56,8 @@ namespace API
             //}
 
             app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
+			app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+			app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",

@@ -3,21 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Dto;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TheTree_Core.Models;
 
 namespace TheTree_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/api/person")]
     [ApiController]
-    public class PersonController : ControllerBase
-    {
+	[EnableCors("*")]
+	public class PersonController : ControllerBase
+	{
+		static int t = 0;
 		//GET: api/Person/all
 		[HttpGet("all")]
-		public IEnumerable<string> ListAll()
+		public IEnumerable<PersonDto> ListAll()
 		{
-			return new string[] { "DuPa", "PuPcIa" };
+			PersonDto[] persons = new PersonDto[2];
+			PersonDto p1 = new PersonDto();
+			p1.Id = 2;
+			p1.Name = "aa";
+			p1.Surname = "AA";
+			PersonDto p2 = new PersonDto();
+			p2.Id = 3;
+			p2.Name = "bb";
+			p2.Surname = "BB";
+			persons[0] = p1;
+			persons[1] = p2;
+			return persons;
 		}
 
         // GET: api/Person
@@ -29,9 +44,15 @@ namespace TheTree_API.Controllers
 
         // GET: api/Person/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public PersonDto Get(int id)
         {
-            return "value";
+			t += id;
+			Console.WriteLine(t);
+			PersonDto p = new PersonDto();
+			p.Id = 1;
+			p.Name = "Json";
+			p.Surname = "Data";
+            return p;
         }
 
         // POST: api/Person
