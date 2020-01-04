@@ -2,10 +2,9 @@ using System;
 using API;
 //using TheTreeCore.Entities;
 //using Infrastructure.Data;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace TheTree_API
@@ -14,7 +13,7 @@ namespace TheTree_API
     {
         public static void Main(string[] args)
         {
-            IWebHost host = CreateWebHostBuilder(args)
+            IHost host = CreateHostBuilder(args)
                 .Build();
 
             using (IServiceScope scope = host.Services.CreateScope())
@@ -45,12 +44,15 @@ namespace TheTree_API
             host.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            return WebHost.CreateDefaultBuilder(args)
-                .UseUrls(urls: "https://localhost:84")
-                .UseIISIntegration()
-                .UseStartup<Startup>();
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder
+                        .UseIISIntegration()
+                        .UseStartup<Startup>();
+                });
         }
     }
 }

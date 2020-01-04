@@ -1,6 +1,8 @@
+import { Guid }from "guid-typescript";
+
 export class Person
 {
-    name : string;
-    surname : string;
-    id : number;
+    Name : string;
+    Surname : string;
+    Id : number;
 }

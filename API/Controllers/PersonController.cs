@@ -7,32 +7,28 @@ using Core.Dto;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TheTree_Core.Models;
+using TheTree_Infrastructure;
 
 namespace TheTree_API.Controllers
 {
     [Route("/api/person")]
     [ApiController]
-	[EnableCors("*")]
+	[EnableCors]
 	public class PersonController : ControllerBase
 	{
-		static int t = 0;
 		//GET: api/Person/all
 		[HttpGet("all")]
 		public IEnumerable<PersonDto> ListAll()
 		{
-			PersonDto[] persons = new PersonDto[2];
-			PersonDto p1 = new PersonDto();
-			p1.Id = 2;
-			p1.Name = "aa";
-			p1.Surname = "AA";
-			PersonDto p2 = new PersonDto();
-			p2.Id = 3;
-			p2.Name = "bb";
-			p2.Surname = "BB";
-			persons[0] = p1;
-			persons[1] = p2;
-			return persons;
+            List<PersonDto> persons = new List<PersonDto>();
+            foreach(var p in new PersonService().ListAll())
+            {
+                persons.Add(new PersonDto(p));
+            }
+
+            return persons;
 		}
 
         // GET: api/Person
@@ -46,25 +42,32 @@ namespace TheTree_API.Controllers
         [HttpGet("{id}", Name = "Get")]
         public PersonDto Get(int id)
         {
-			t += id;
-			Console.WriteLine(t);
-			PersonDto p = new PersonDto();
-			p.Id = 1;
-			p.Name = "Json";
-			p.Surname = "Data";
-            return p;
+			Person p = new PersonService().Get(id);
+			PersonDto pDto = new PersonDto(p);
+            return pDto;
         }
 
         // POST: api/Person
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            Console.WriteLine(value);
+        }
+
+        // POST: api/Person/send
+        [HttpPost("send")]
+        public IActionResult PostPerson([FromBody] object value)
+        {
+            PersonDto p = JsonConvert.DeserializeObject<PersonDto>(value.ToString());
+            new PersonService().Post(p.ToPerson());
+            return Ok();
         }
 
         // PUT: api/Person/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put([FromBody] PersonDto value)
         {
+
         }
 
         // DELETE: api/ApiWithActions/5

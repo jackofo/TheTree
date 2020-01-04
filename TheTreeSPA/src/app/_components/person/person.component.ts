@@ -12,18 +12,14 @@ import { validateConfig } from '@angular/router/src/config';
 
 export class PersonComponent implements OnInit 
 {
-  a :string = "kasza";
   ls = false;
   persons : Person[];
   selectedPerson : Person;
-  p : Person;
 
   constructor(private service : PersonService)
   {
     this.persons = new Array<Person>();
     this.selectedPerson = new Person();
-    this.p = new Person();
-    this.p.id =1;
   }
 
   ngOnInit() 
@@ -44,11 +40,27 @@ export class PersonComponent implements OnInit
   public Get()
   {
     this.service.Get(1).subscribe(response => { this.selectedPerson = response; });
+    console.log(this.selectedPerson);
   }
 
+  public Add(person : Person)
+  {
+    this.service.Add(person).subscribe(response => console.log(response));
+  }
+
+  //testshit
   Click()
   {
     this.ListAll();
+  }
+  onSubmit(name : string, surname : string)
+  {
+    console.log("dupa");
+    let p = new Person();
+    p.Name = name;
+    p.Surname = surname;
+    p.Id = 2;
+    this.Add(p);
   }
 }
 

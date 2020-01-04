@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TheTree_Infrastructure;
+using System;
 
 namespace API
 {
@@ -23,15 +24,15 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-			//services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<ProjectContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TreeDatabase")));
-			// In production, the Angular files will be served from this directory
-			//services.AddSpaStaticFiles(configuration =>
-			//{
-			//    configuration.RootPath = "ClientApp/dist";
-			//});
-			services.AddControllers();
+            // In production, the Angular files will be served from this directory
+            //services.AddSpaStaticFiles(configuration =>
+            //{
+            //    configuration.RootPath = "ClientApp/dist";
+            //});
+            services.AddControllers();
 			services.AddCors();
 		}
 
@@ -56,8 +57,16 @@ namespace API
             //}
 
             app.UseRouting();
-			app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-			app.UseEndpoints(endpoints =>
+
+            app.UseCors(options =>
+            {
+                options
+                    .WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+			
+            app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",

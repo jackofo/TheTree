@@ -1,7 +1,18 @@
 <p>person works!</p>
-<button id='test' (click)='Click()'>Push the button</button>
-<ul *ngIf="ls === true">
-    <li *ngFor="let person of persons">
-        <span class="badge">{{person.name}}</span>
-    </li>
-</ul>
+<div class="container" style="border: 1px black solid">
+    <button id='test' (click)='Click()'>Push the button</button>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+        </tr>
+        <tr *ngFor="let person of persons">
+            <td>{{person.name}}</td>
+            <td>{{person.surname}}</td>
+        </tr>
+    </table>
+</div>
+<p>
+    <app-person-insert></app-person-insert>
+    <button (click)="onSubmit('jhonny', 'sins')">Submit</button>
+</p>
