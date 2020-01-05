@@ -11,6 +11,7 @@ namespace TheTree_Core.Models
 		public string Name { get; set; }
 		[Required]
 		public string Surname { get; set; }
-		//public Relationship ParenthoodId;
+		
+		public Relationship Parenthood { get; set; }
 	}
 }

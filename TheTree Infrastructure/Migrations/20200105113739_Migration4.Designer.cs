@@ -10,8 +10,8 @@ using TheTree_Infrastructure;
 namespace TheTree_Infrastructure.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20200104124014_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20200105113739_Migration4")]
+    partial class Migration4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,13 +38,43 @@ namespace TheTree_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ParenthoodId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ParenthoodId");
+
                     b.ToTable("Persons");
+                });
+
+            modelBuilder.Entity("TheTree_Core.Models.Relationship", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateOfChange")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfCreation")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Relationship");
+                });
+
+            modelBuilder.Entity("TheTree_Core.Models.Person", b =>
+                {
+                    b.HasOne("TheTree_Core.Models.Relationship", "Parenthood")
+                        .WithMany()
+                        .HasForeignKey("ParenthoodId");
                 });
 #pragma warning restore 612, 618
         }

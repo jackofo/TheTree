@@ -11,13 +11,16 @@ namespace TheTree_Infrastructure
 	{
 		public List<Person> ListAll()
 		{
-			List<Person> persons = new List<Person>
+			using (var db = new ProjectContext())
 			{
-				new Person { Id = 2, Name = "Dupek", Surname = "Dupkowaty" },
-				new Person { Id = 3, Name = "Pupek", Surname = "Pupkowaty" }
-			};
+				List<Person> persons = db.Persons.ToList(); //new List<Person>
+			//{
+			//	new Person { Id = 2, Name = "Dupek", Surname = "Dupkowaty" },
+			//	new Person { Id = 3, Name = "Pupek", Surname = "Pupkowaty" }
+			//};
 
-			return persons;
+				return persons;
+			}
 		}
 
 		public Person Get(int id)
@@ -32,13 +35,21 @@ namespace TheTree_Infrastructure
 			};
 		}
 
-		public void Post(Person person)
+		public bool Post(Person person)
 		{
 			using (var db = new ProjectContext())
 			{
+				foreach(var p in ListAll())
+				{
+					if(p.Name == person.Name && p.Surname == person.Surname)
+					{
+						return false;
+					}
+				}
 				db.Persons.Add(person);
 				db.SaveChanges();
 			}
+			return true;
 		}
 	}
 }

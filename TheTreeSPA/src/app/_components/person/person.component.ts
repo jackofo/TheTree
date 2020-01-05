@@ -12,13 +12,10 @@ import { validateConfig } from '@angular/router/src/config';
 
 export class PersonComponent implements OnInit 
 {
-  ls = false;
-  persons : Person[];
   selectedPerson : Person;
 
   constructor(private service : PersonService)
   {
-    this.persons = new Array<Person>();
     this.selectedPerson = new Person();
   }
 
@@ -27,40 +24,10 @@ export class PersonComponent implements OnInit
     
   }
 
-  Update()
-  {
-    this.ls = true;
-  } 
-
-  public ListAll()
-  {
-    this.service.ListAll().subscribe(response => { this.persons = response; this.Update(); });
-  }
-
   public Get()
   {
     this.service.Get(1).subscribe(response => { this.selectedPerson = response; });
     console.log(this.selectedPerson);
-  }
-
-  public Add(person : Person)
-  {
-    this.service.Add(person).subscribe(response => console.log(response));
-  }
-
-  //testshit
-  Click()
-  {
-    this.ListAll();
-  }
-  onSubmit(name : string, surname : string)
-  {
-    console.log("dupa");
-    let p = new Person();
-    p.Name = name;
-    p.Surname = surname;
-    p.Id = 2;
-    this.Add(p);
   }
 }
 

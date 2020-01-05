@@ -9,6 +9,7 @@ namespace Core.Dto
 	{
 		public string Name { get; set; }
 		public string Surname { get; set; }
+		public int ParenthoodId { get; set; }
 
 		public PersonDto(){}
 
@@ -17,6 +18,8 @@ namespace Core.Dto
 			this.Id = person.Id;
 			this.Name = person.Name;
 			this.Surname = person.Surname;
+			if(person.Parenthood != null)
+				this.ParenthoodId = person.Parenthood.Id;
 		}
 
 		public Person ToPerson()

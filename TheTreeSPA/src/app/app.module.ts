@@ -8,6 +8,7 @@ import { PersonComponent } from './_components/person/person.component';
 import { RelationshipComponent } from './_components/relationship/relationship.component';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { PersonInsertComponent } from './_components/person-insert/person-insert.component';
+import { TreeComponent } from './_components/tree/tree.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { PersonInsertComponent } from './_components/person-insert/person-insert
     LoginScreenComponent,
     PersonComponent,
     RelationshipComponent,
-    PersonInsertComponent
+    PersonInsertComponent,
+    TreeComponent
   ],
   imports: [
     BrowserModule,

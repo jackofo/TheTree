@@ -59,8 +59,14 @@ namespace TheTree_API.Controllers
         public IActionResult PostPerson([FromBody] object value)
         {
             PersonDto p = JsonConvert.DeserializeObject<PersonDto>(value.ToString());
-            new PersonService().Post(p.ToPerson());
-            return Ok();
+            if (new PersonService().Post(p.ToPerson()))
+            {
+                return Ok();
+            }
+            else
+            {
+                return StatusCode(304);
+            }
         }
 
         // PUT: api/Person/5

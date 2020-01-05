@@ -1,0 +1,16 @@
+<p>
+  tree works!
+</p><button (click)="ngOnInit()">Refresh</button>
+<div class="container" style="border: 1px black solid">
+  <table class="table">
+      <tr>
+          <th>Name</th>
+          <th>Surname</th>
+      </tr>
+      <tr *ngFor="let person of persons">
+          <td>{{person.name}}</td>
+          <td>{{person.surname}}</td>
+          <td>{{person.parenthoodId}}</td>
+      </tr>
+  </table>
+</div>
