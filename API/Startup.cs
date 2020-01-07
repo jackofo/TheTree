@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Infrastructure;
 using System;
@@ -36,7 +37,9 @@ namespace API
             //});
             services.AddControllers();
 			services.AddCors();
-		}
+
+            ConfigurationDependencyInjection(services);
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -74,38 +77,15 @@ namespace API
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
-
-
         }
         public void ConfigurationDependencyInjection(IServiceCollection services)
         {
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
             //services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             //services.AddAutoMapper();
-            services.AddScoped<Core.Services.IPersonService, Core.Services.IPersonService>();
-            services.AddScoped<IProjectService, ProjectService>();
-            services.AddScoped<ILanguageService, LanguageService>();
-            services.AddScoped<IDeckService, DeckService>();
-            services.AddScoped<IRevisionService, RevisionService>();
-            services.AddScoped<IDeviceService, DeviceService>();
-            services.AddScoped<IDrawingService, DrawingService>();
-            services.AddScoped<IDrawingGroupService, DrawingGroupService>();
-            services.AddScoped<IRoomService, RoomService>();
-            services.AddScoped<INetService, NetService>();
-            services.AddScoped<ITrayNetworkService, TrayNetworkService>();
-            services.AddScoped<ILocalizationService, LocalizationService>();
-            services.AddScoped<IAuditSessionService, AuditSessionService>();
-            services.AddScoped<IDeviceService, DeviceService>();
-            services.AddScoped<ICircuitService, CircuitService>();
-            services.AddScoped<IAuditSessionDeviceService, AuditSessionDeviceService>();
-            services.AddScoped<IAuditSessionDeckService, AuditSessionDeckService>();
-            services.AddScoped<IAuditSessionCircuitService, AuditSessionCircuitService>();
-            services.AddScoped<IAuditSessionRoomService, AuditSessionRoomService>();
-            services.AddScoped<IAuditSessionDrawingService, AuditSessionDrawingService>();
-            services.AddScoped<IAuditSessionTrayNetworkService, AuditSessionTrayNetworkService>();
-            services.AddScoped<IReferenceTablesService, ReferenceService>();
+            services.AddScoped<IPersonService, PersonService>();
         }
     }
 }

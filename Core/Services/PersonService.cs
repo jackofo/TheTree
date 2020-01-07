@@ -10,14 +10,14 @@ using Core.Specifications;
 
 namespace Core.Services
 {
-	public class IPersonService
+	public class PersonService: IPersonService
 	{
 		//private readonly IHttpContextAccessor _httpContextAccessor;
 		//private readonly IMapper _mapper;
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly string _userId;
 
-		public IPersonService(
+		public PersonService(
 			IUnitOfWork unitOfWork
 			//IMapper mapper,
 			//IHttpContextAccessor httpContextAccessor
@@ -29,43 +29,19 @@ namespace Core.Services
 			//_userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Name);
 		}
 
+		public Task<IReadOnlyList<PersonDto>> List(Guid id)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task<IReadOnlyList<PersonDto>> ListAll()
 		{
 
 			IReadOnlyList<Person> output = await _unitOfWork.RepositoryAsync<Person>().ListAsync(new PersonSpecification());
 			//TODO: tu konwersja z list<Person> na List<PersonDto>
-			var persons = new List<PersonDto>();
+			IReadOnlyList<PersonDto> persons = new List<PersonDto>();
 			return persons;
 		}
-	}
-
-	public Person Get(int id)
-	{
-		//using var db = new ProjectContext();
-		//return (Person)db.Persons.Where(p => p.Id == id);
-		return new Person
-		{
-			Id = Guid.NewGuid(),
-			Name = "Pajac",
-			Surname = "innyPajac"
-		};
-	}
-
-	public bool Post(Person person)
-	{
-		//using (var db = new ProjectContext())
-		//{
-		//	foreach(var p in ListAll())
-		//	{
-		//		if(p.Name == person.Name && p.Surname == person.Surname)
-		//		{
-		//			return false;
-		//		}
-		//	}
-		//	db.Persons.Add(person);
-		//	db.SaveChanges();
-		//}
-		return true;
 	}
 }
 

@@ -20,9 +20,9 @@ namespace TheTree_API.Controllers
 	[EnableCors]
 	public class PersonController : ControllerBase
 	{
-        private readonly Core.Services.IPersonService _personService;
+        private readonly IPersonService _personService;
 
-        public PersonController(Core.Services.IPersonService personService)
+        public PersonController(IPersonService personService)
         {
             _personService = personService;
         }
@@ -31,7 +31,7 @@ namespace TheTree_API.Controllers
         [HttpGet("all")]
 		public async Task<IEnumerable<PersonDto>> ListAllAsync()
 		{
-            List<PersonDto> persons = await _personService.ListAll();
+            var persons = await _personService.ListAll();
             //foreach(var p in new PersonService().ListAll())
             //{
             //    persons.Add(new PersonDto(p));
@@ -39,56 +39,5 @@ namespace TheTree_API.Controllers
 
             return persons;
 		}
-
-        // GET: api/Person
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Person/5
-        [HttpGet("{id}", Name = "Get")]
-        public PersonDto Get(int id)
-        {
-            Person p = new Core.Services.IPersonService().Get(id);
-			PersonDto pDto = new PersonDto(p);
-            return pDto;
-        }
-
-        // POST: api/Person
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-            Console.WriteLine(value);
-        }
-
-        // POST: api/Person/send
-        [HttpPost("send")]
-        public IActionResult PostPerson([FromBody] object value)
-        {
-            PersonDto p = JsonConvert.DeserializeObject<PersonDto>(value.ToString());
-            if (new Core.Services.IPersonService().Post(p.ToPerson()))
-            {
-                return base.Ok();
-            }
-            else
-            {
-                return base.StatusCode(304);
-            }
-        }
-
-        // PUT: api/Person/5
-        [HttpPut("{id}")]
-        public void Put([FromBody] PersonDto value)
-        {
-
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

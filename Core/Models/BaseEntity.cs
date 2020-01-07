@@ -10,7 +10,7 @@ namespace Core.Models
     public class BaseEntity
     {
 		[Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime DateOfCreation { get; set; }
         public DateTime DateOfChange { get; set; }
     }
