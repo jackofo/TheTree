@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using TheTree_Core.Models;
+using Core.Models;
 
-namespace TheTree_Infrastructure
+namespace Infrastructure
 {
 	public class ProjectContext : DbContext
 	{

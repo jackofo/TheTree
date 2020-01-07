@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using TheTree_Core.Models;
-using TheTree_Infrastructure;
+using Core.Models;
+using Infrastructure;
+using Core.Interfaces;
+using Core.Services;
 
 namespace TheTree_API.Controllers
 {
@@ -18,15 +20,22 @@ namespace TheTree_API.Controllers
 	[EnableCors]
 	public class PersonController : ControllerBase
 	{
-		//GET: api/Person/all
-		[HttpGet("all")]
-		public IEnumerable<PersonDto> ListAll()
+        private readonly Core.Services.IPersonService _personService;
+
+        public PersonController(Core.Services.IPersonService personService)
+        {
+            _personService = personService;
+        }
+
+        //GET: api/Person/all
+        [HttpGet("all")]
+		public async Task<IEnumerable<PersonDto>> ListAllAsync()
 		{
-            List<PersonDto> persons = new List<PersonDto>();
-            foreach(var p in new PersonService().ListAll())
-            {
-                persons.Add(new PersonDto(p));
-            }
+            List<PersonDto> persons = await _personService.ListAll();
+            //foreach(var p in new PersonService().ListAll())
+            //{
+            //    persons.Add(new PersonDto(p));
+            //}
 
             return persons;
 		}
@@ -42,7 +51,7 @@ namespace TheTree_API.Controllers
         [HttpGet("{id}", Name = "Get")]
         public PersonDto Get(int id)
         {
-			Person p = new PersonService().Get(id);
+            Person p = new Core.Services.IPersonService().Get(id);
 			PersonDto pDto = new PersonDto(p);
             return pDto;
         }
@@ -59,13 +68,13 @@ namespace TheTree_API.Controllers
         public IActionResult PostPerson([FromBody] object value)
         {
             PersonDto p = JsonConvert.DeserializeObject<PersonDto>(value.ToString());
-            if (new PersonService().Post(p.ToPerson()))
+            if (new Core.Services.IPersonService().Post(p.ToPerson()))
             {
-                return Ok();
+                return base.Ok();
             }
             else
             {
-                return StatusCode(304);
+                return base.StatusCode(304);
             }
         }
 

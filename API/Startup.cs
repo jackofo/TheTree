@@ -7,8 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TheTree_Infrastructure;
+using Infrastructure;
 using System;
+using Core.Interfaces;
+using Core.Services;
 
 namespace API
 {
@@ -73,18 +75,37 @@ namespace API
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            //app.UseSpa(spa =>
-            //{
-            //    // To learn more about options for serving an Angular SPA from ASP.NET Core,
-            //    // see https://go.microsoft.com/fwlink/?linkid=864501
 
-            //    spa.Options.SourcePath = "ClientApp";
-
-            //    if (env.IsDevelopment())
-            //    {
-            //        spa.UseAngularCliServer(npmScript: "start");
-            //    }
-            //});
+        }
+        public void ConfigurationDependencyInjection(IServiceCollection services)
+        {
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
+            //services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            //services.AddAutoMapper();
+            services.AddScoped<Core.Services.IPersonService, Core.Services.IPersonService>();
+            services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<IDeckService, DeckService>();
+            services.AddScoped<IRevisionService, RevisionService>();
+            services.AddScoped<IDeviceService, DeviceService>();
+            services.AddScoped<IDrawingService, DrawingService>();
+            services.AddScoped<IDrawingGroupService, DrawingGroupService>();
+            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<INetService, NetService>();
+            services.AddScoped<ITrayNetworkService, TrayNetworkService>();
+            services.AddScoped<ILocalizationService, LocalizationService>();
+            services.AddScoped<IAuditSessionService, AuditSessionService>();
+            services.AddScoped<IDeviceService, DeviceService>();
+            services.AddScoped<ICircuitService, CircuitService>();
+            services.AddScoped<IAuditSessionDeviceService, AuditSessionDeviceService>();
+            services.AddScoped<IAuditSessionDeckService, AuditSessionDeckService>();
+            services.AddScoped<IAuditSessionCircuitService, AuditSessionCircuitService>();
+            services.AddScoped<IAuditSessionRoomService, AuditSessionRoomService>();
+            services.AddScoped<IAuditSessionDrawingService, AuditSessionDrawingService>();
+            services.AddScoped<IAuditSessionTrayNetworkService, AuditSessionTrayNetworkService>();
+            services.AddScoped<IReferenceTablesService, ReferenceService>();
         }
     }
 }
